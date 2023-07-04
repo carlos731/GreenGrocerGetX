@@ -12,8 +12,12 @@ import '../common_widgets/custom_text_field.dart';
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
-  // Chabe global do formulário.
+  // Chave global do formulário.
   final _formKey = GlobalKey<FormState>();
+
+  // Controlador de campos
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +82,7 @@ class SignInScreen extends StatelessWidget {
                     children: [
                       // Email
                       CustomTextField(
+                        controller: emailController,
                         icon: Icons.email,
                         label: 'Email',
                         validator: (email) {
@@ -93,6 +98,7 @@ class SignInScreen extends StatelessWidget {
                 
                       // Senha
                       CustomTextField(
+                        controller: passwordController,
                         icon: Icons.lock,
                         label: 'Senha',
                         isSecret: true,
@@ -125,6 +131,9 @@ class SignInScreen extends StatelessWidget {
                             // );
                             if(_formKey.currentState!.validate()){
                               print('Todos os campos estão válidos!');
+                              String email = emailController.text;
+                              String password = passwordController.text;
+                              print('Email: $email - Senha: $password');
                             } else {
                               print('Campos não válidos!');
                             }
