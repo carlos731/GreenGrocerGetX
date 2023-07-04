@@ -8,6 +8,7 @@ import '../base/base_screen.dart';
 import '../../config/custom_colors.dart';
 import '../common_widgets/app_name_widget.dart';
 import '../common_widgets/custom_text_field.dart';
+import 'controller/auth_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -88,14 +89,14 @@ class SignInScreen extends StatelessWidget {
                         validator: (email) {
                           if (email == null || email.isEmpty)
                             return 'Digite seu email!';
-                
+
                           // Expressões regulares para verificar strings.
                           if (!email.isEmail) return 'Digite um email válido!';
-                
+
                           return null;
                         },
                       ),
-                
+
                       // Senha
                       CustomTextField(
                         controller: passwordController,
@@ -106,46 +107,61 @@ class SignInScreen extends StatelessWidget {
                           if (password == null || password.isEmpty) {
                             return "Digite seu email!";
                           }
-                
+
                           if (password.length < 7) {
                             return 'Digite uma senha com pelo menos 7 caracteres';
                           }
-                
+
                           return null;
                         },
                       ),
-                
+
                       // Botão de entrar
                       SizedBox(
                         height: 50,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          )),
-                          onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //   MaterialPageRoute(builder: (c) {
-                            //     return const BaseScreen();
-                            //   })
-                            // );
-                            if(_formKey.currentState!.validate()){
-                              print('Todos os campos estão válidos!');
-                              String email = emailController.text;
-                              String password = passwordController.text;
-                              print('Email: $email - Senha: $password');
-                            } else {
-                              print('Campos não válidos!');
-                            }
-                            //Get.offNamed(PagesRoutes.baseRoute);
-                          },
-                          child: const Text('Entrar',
-                              style: TextStyle(
-                                fontSize: 18,
-                              )),
-                        ),
+                        child: GetX<AuthController>(builder: (authController) {
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            )),
+                            onPressed: authController.isLoading.value
+                                ? null
+                                : () {
+                                    // Navigator.of(context).pushReplacement(
+                                    //   MaterialPageRoute(builder: (c) {
+                                    //     return const BaseScreen();
+                                    //   })
+                                    // );
+                                    FocusScope.of(context).unfocus();
+
+                                    if (_formKey.currentState!.validate()) {
+                                      print('Todos os campos estão válidos!');
+
+                                      String email = emailController.text;
+                                      String password = passwordController.text;
+
+                                      print('Email: $email - Senha: $password');
+
+                                      authController.signIn(
+                                          email: email, password: password);
+                                    } else {
+                                      print('Campos não válidos!');
+                                    }
+                                    //Get.offNamed(PagesRoutes.baseRoute);
+                                  },
+                            child: authController.isLoading.value
+                                ? const CircularProgressIndicator()
+                                : const Text(
+                                    'Entrar',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                          );
+                        }),
                       ),
-                
+
                       // Esqueceu a senha
                       Align(
                         alignment: Alignment.centerRight,
@@ -159,7 +175,7 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                
+
                       // Divisor
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
@@ -184,7 +200,7 @@ class SignInScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                
+
                       // Botão novo usuário
                       SizedBox(
                         height: 50,
