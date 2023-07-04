@@ -87,8 +87,9 @@ class SignInScreen extends StatelessWidget {
                         icon: Icons.email,
                         label: 'Email',
                         validator: (email) {
-                          if (email == null || email.isEmpty)
+                          if (email == null || email.isEmpty){
                             return 'Digite seu email!';
+                          }
 
                           // Expressões regulares para verificar strings.
                           if (!email.isEmail) return 'Digite um email válido!';
@@ -105,7 +106,7 @@ class SignInScreen extends StatelessWidget {
                         isSecret: true,
                         validator: (password) {
                           if (password == null || password.isEmpty) {
-                            return "Digite seu email!";
+                            return "Digite sua senha!";
                           }
 
                           if (password.length < 7) {
