@@ -1,4 +1,10 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'user_model.g.dart';
+
+@JsonSerializable()
 class UserModel {
+  @JsonKey(name: 'fullname')
   String? name;
   String? email;
   String? phone;
@@ -17,6 +23,7 @@ class UserModel {
     this.token,
   });
 
+  /* Não é mais necessário, pois algumas libs ja fazem isso para nós logo abaixo.
   factory UserModel.fromMap(Map<String, dynamic> map){
     return UserModel(
       cpf: map['cpf'],
@@ -40,9 +47,16 @@ class UserModel {
       'token': token,
     };
   }
+  */
+
+  // para gerar o build com a lib build_runner, no terminal colocar para criar o arquivo user_model.g.dart: flutter pub run build_runner build
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
 
   @override
   String toString() {
-    return 'name: $name | cpf: $cpf';
+    return 'UserModel(name: $name, email: $email, phone: $phone, cpf: $cpf, password: $password, id: $id, token: $token)';
   }
 }

@@ -19,7 +19,7 @@ class AuthRepository {
       print('Signin funcionou!');
       print(result['result']);
 
-      final user = UserModel.fromMap(result['result']);// Instanciando novo usuário. Recebendo dados da requisição e armazenando na variável.
+      final user = UserModel.fromJson(result['result']);// Instanciando novo usuário. Recebendo dados da requisição e armazenando na variável.
 
       print(user);
 
