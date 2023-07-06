@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
-  Get.put(AuthController());
+  WidgetsFlutterBinding.ensureInitialized(); // Ter certeza que está inicializado
+
+  Get.put(AuthController()); // Injeção de dependência
 
   runApp(const MyApp());
 }
