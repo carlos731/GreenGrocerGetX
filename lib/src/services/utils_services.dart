@@ -23,14 +23,13 @@ class UtilsServices {
 
   // Método usando fluttertoast
 
-  /*
-  void showToast({
+  
+  void showFlutterToast({
     required String message,
     bool isError = false,
-    required context,
   }) {
     Fluttertoast.showToast(
-      msg: "Green s",
+      msg: message,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 3,
@@ -39,8 +38,9 @@ class UtilsServices {
       fontSize: 14.0,
     );
   }
-  */
+  
   // Método para exibição de alertas usando MotionToast
+  
   void showToast(
       {required String message,
       bool isError = false,

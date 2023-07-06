@@ -1,5 +1,8 @@
+import 'package:app/src/pages_routes/app_pages.dart';
 import 'package:get/get.dart';
 
+import '../../../models/user_model.dart';
+import '../../../services/utils_services.dart';
 import '../repository/auth_repository.dart';
 import '../result/auth_result.dart';
 
@@ -7,6 +10,9 @@ class AuthController extends GetxController {
   RxBool isLoading = false.obs;
 
   final authRepository = AuthRepository();
+  final utilsServices = UtilsServices();
+
+  UserModel user = UserModel();
 
   Future<void> signIn({required String email, required String password}) async {
     isLoading.value = true;
@@ -20,9 +26,15 @@ class AuthController extends GetxController {
 
     result.when(
       success: (user) {
+        this.user = user;
+        Get.offAllNamed(PagesRoutes.baseRoute);
         print(user);
       },
       error: (message) {
+        utilsServices.showFlutterToast(
+          message: message,
+          isError: true,
+        );
         print(message);
       },
     );
