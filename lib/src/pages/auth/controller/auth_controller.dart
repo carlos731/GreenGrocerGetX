@@ -15,12 +15,13 @@ class AuthController extends GetxController {
 
   UserModel user = UserModel();
 
-  @override
-  void onInit(){
-    super.onInit();
+  // comentado para ajustar e rodar no ambiente web!
+  // @override
+  // void onInit(){
+  //   super.onInit();
 
-    validateToken();
-  }
+  //   validateToken();
+  // }
 
   Future<void> validateToken() async {
     // Recuperar o token que já foi salvo

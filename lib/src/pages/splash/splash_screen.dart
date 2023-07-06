@@ -1,25 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../config/custom_colors.dart';
+import '../auth/controller/auth_controller.dart';
 import '../common_widgets/app_name_widget.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
 
+class _SplashScreenState extends State<SplashScreen> {
+
+  // Alteração para funcionar tbm no ambiente web!
+  @override
+  void initState() {
+    super.initState();
+
+    Get.find<AuthController>().validateToken();
+  }
+  
   // Antes usado para demorar um tempo e navegar para signin!
-  // @override
-  // void initState() {
-  //   super.initState();
+/*
+  @override
+  void initState() {
+    super.initState();
 
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){
-  //     //   return const SignInScreen();
-  //     // }));
-  //     Get.offNamed(PagesRoutes.signInRoute);
-  //   });
-  // }
-
+    Future.delayed(const Duration(seconds: 2), () {
+      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (c){
+      //   return const SignInScreen();
+      // }));
+      Get.offNamed(PagesRoutes.signInRoute);
+    });
+  }
+  */
+  
   @override
   Widget build(BuildContext context) {
     return Material(
