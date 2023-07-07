@@ -45,6 +45,10 @@ class AuthController extends GetxController {
     );
   }
 
+  Future<void> resetPassword(String email) async {
+    await authRepository.resetPassword(email);
+  }
+
   Future<void> signOut() async {
     // Zerar o user
     user = UserModel();
@@ -66,9 +70,10 @@ class AuthController extends GetxController {
 
   Future<void> signUp() async {
     isLoading.value = true;
-    
-    AuthResult result = await authRepository.signUp(user); // user instanciado na linha 16
-    
+
+    AuthResult result =
+        await authRepository.signUp(user); // user instanciado na linha 16
+
     isLoading.value = false;
 
     result.when(
@@ -83,7 +88,6 @@ class AuthController extends GetxController {
         );
       },
     );
-
   }
 
   Future<void> signIn({required String email, required String password}) async {

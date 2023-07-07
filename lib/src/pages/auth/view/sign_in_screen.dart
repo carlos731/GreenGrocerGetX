@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app/src/pages/auth/view/components/forgot_password_dialog.dart';
 import 'package:app/src/pages_routes/app_pages.dart';
+import 'package:app/src/services/utils_services.dart';
 import 'package:app/src/services/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,8 @@ class SignInScreen extends StatelessWidget {
   // Controlador de campos
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final utilsServices = UtilsServices();
 
   @override
   Widget build(BuildContext context) {
@@ -149,13 +152,25 @@ class SignInScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {
-                            showDialog(
+                          onPressed: () async {
+                            final bool? result = await showDialog(
                               context: context,
                               builder: (_) {
-                                return ForgotPasswordDialog(email: emailController.text);
+                                return ForgotPasswordDialog(
+                                    email: emailController.text);
                               },
                             );
+
+                            if (result ?? false) {
+                              // utilsServices.showToast(
+                              //   message:
+                              //       'Um link de recuperação foi enviado para seu email!',
+                              //   context: context,
+                              //   height: 50,
+                              //   width: 300,
+                              // );
+                              utilsServices.showFlutterToast(message: 'Um link de recuperação foi enviado para seu email!');
+                            }
                           },
                           child: Text(
                             'Esqueceu a senha?',
