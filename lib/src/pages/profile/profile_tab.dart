@@ -1,6 +1,10 @@
 import 'package:app/src/pages/common_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:app/src/config/app_data.dart' as appData;
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../auth/controller/auth_controller.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -17,7 +21,9 @@ class _ProfileTabState extends State<ProfileTab> {
         title: const Text('Perfil do usuário'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+               Get.find<AuthController>().signOut();
+            },
             icon: const Icon(Icons.logout),
           ),
         ],
