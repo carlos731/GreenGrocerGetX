@@ -14,7 +14,7 @@ class SignUpScreen extends StatelessWidget {
   );
 
   final phoneFormatter = MaskTextInputFormatter(
-    mask: '+## (##) #####-####',
+    mask: '## # ####-####',
     filter: {'#': RegExp(r'[0-9]')},
   );
 
@@ -103,7 +103,7 @@ class SignUpScreen extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                
+                                _formKey.currentState!.validate();
                               },
                               child: const Text('Cadastrar usuário',
                                   style: TextStyle(
