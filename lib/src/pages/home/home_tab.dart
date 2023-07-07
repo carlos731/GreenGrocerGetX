@@ -2,7 +2,6 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../config/custom_colors.dart';
 import '../common_widgets/app_name_widget.dart';
 import '../common_widgets/custom_shimmer.dart';

@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:app/src/pages/auth/view/components/forgot_password_dialog.dart';
 import 'package:app/src/pages_routes/app_pages.dart';
 import 'package:app/src/services/validators.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,14 @@ class SignInScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return ForgotPasswordDialog(email: emailController.text);
+                              },
+                            );
+                          },
                           child: Text(
                             'Esqueceu a senha?',
                             style: TextStyle(
