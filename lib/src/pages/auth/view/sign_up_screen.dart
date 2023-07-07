@@ -1,3 +1,4 @@
+import 'package:app/src/services/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -16,6 +17,8 @@ class SignUpScreen extends StatelessWidget {
     mask: '+## (##) #####-####',
     filter: {'#': RegExp(r'[0-9]')},
   );
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,50 +56,63 @@ class SignUpScreen extends StatelessWidget {
                         top: Radius.circular(45),
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const CustomTextField(
-                          icon: Icons.email,
-                          label: 'Email',
-                        ),
-                        const CustomTextField(
-                          icon: Icons.lock,
-                          label: 'Senha',
-                          isSecret: true,
-                        ),
-                        const CustomTextField(
-                          icon: Icons.person,
-                          label: 'Nome',
-                        ),
-                        CustomTextField(
-                          icon: Icons.phone,
-                          label: 'Celular',
-                          inputFormatters: [phoneFormatter],
-                        ),
-                        CustomTextField(
-                          icon: Icons.file_copy,
-                          label: 'CPF',
-                          inputFormatters: [cpfFormatter],
-                        ),
-
-                        //Botão de cadastrar usuário
-                        SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: const Text('Cadastrar usuário',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                )),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const CustomTextField(
+                            icon: Icons.email,
+                            label: 'Email',
+                            validator: emailValidator,
+                            textInputType: TextInputType.emailAddress,
                           ),
-                        ),
-                      ],
+                          const CustomTextField(
+                            icon: Icons.lock,
+                            label: 'Senha',
+                            validator: passwordValidator,
+                            isSecret: true,
+                          ),
+                          const CustomTextField(
+                            icon: Icons.person,
+                            label: 'Nome',
+                            validator: nameValidator,
+                          ),
+                          CustomTextField(
+                            icon: Icons.phone,
+                            label: 'Celular',
+                            validator: phoneValidator,
+                            inputFormatters: [phoneFormatter],
+                            textInputType: TextInputType.phone,
+                          ),
+                          CustomTextField(
+                            icon: Icons.file_copy,
+                            label: 'CPF',
+                            validator: cpfValidator,
+                            inputFormatters: [cpfFormatter],
+                            textInputType: TextInputType.number,
+                          ),
+                    
+                          //Botão de cadastrar usuário
+                          SizedBox(
+                            height: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              onPressed: () {
+                                
+                              },
+                              child: const Text('Cadastrar usuário',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  )),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

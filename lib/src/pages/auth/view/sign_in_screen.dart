@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:app/src/pages_routes/app_pages.dart';
+import 'package:app/src/services/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -84,16 +85,8 @@ class SignInScreen extends StatelessWidget {
                         controller: emailController,
                         icon: Icons.email,
                         label: 'Email',
-                        validator: (email) {
-                          if (email == null || email.isEmpty){
-                            return 'Digite seu email!';
-                          }
-
-                          // Expressões regulares para verificar strings.
-                          if (!email.isEmail) return 'Digite um email válido!';
-
-                          return null;
-                        },
+                        validator: emailValidator,
+                        textInputType: TextInputType.emailAddress,
                       ),
 
                       // Senha
@@ -102,17 +95,7 @@ class SignInScreen extends StatelessWidget {
                         icon: Icons.lock,
                         label: 'Senha',
                         isSecret: true,
-                        validator: (password) {
-                          if (password == null || password.isEmpty) {
-                            return "Digite sua senha!";
-                          }
-
-                          if (password.length < 7) {
-                            return 'Digite uma senha com pelo menos 7 caracteres';
-                          }
-
-                          return null;
-                        },
+                        validator: passwordValidator,
                       ),
 
                       // Botão de entrar
