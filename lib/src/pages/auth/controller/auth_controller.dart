@@ -13,7 +13,7 @@ class AuthController extends GetxController {
   final authRepository = AuthRepository();
   final utilsServices = UtilsServices();
 
-  UserModel user = UserModel();
+  UserModel user = UserModel(); // Instância de UserModel
 
   // comentado para ajustar e rodar no ambiente web!
   // @override
@@ -54,7 +54,6 @@ class AuthController extends GetxController {
 
     // Ir para o login
     Get.offAllNamed(PagesRoutes.signInRoute);
-
   }
 
   void saveTokenAndProceedToBase() {
@@ -63,6 +62,28 @@ class AuthController extends GetxController {
 
     // Ir para a base
     Get.offAllNamed(PagesRoutes.baseRoute);
+  }
+
+  Future<void> signUp() async {
+    isLoading.value = true;
+    
+    AuthResult result = await authRepository.signUp(user); // user instanciado na linha 16
+    
+    isLoading.value = false;
+
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        utilsServices.showFlutterToast(
+          message: message,
+          isError: true,
+        );
+      },
+    );
+
   }
 
   Future<void> signIn({required String email, required String password}) async {
