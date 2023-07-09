@@ -42,7 +42,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
   void initState() {
     super.initState();
 
-    Get.find<HomeController>().printExample();
+    //Get.find<HomeController>().printExample();
   
     Future.delayed(const Duration(seconds: 2), 
     (){
