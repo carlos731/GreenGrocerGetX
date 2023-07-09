@@ -2,7 +2,7 @@ import 'package:app/src/pages/orders/orders_tab.dart';
 import 'package:flutter/material.dart';
 
 import '../cart/cart_tab.dart';
-import '../home/home_tab.dart';
+import '../home/view/home_tab.dart';
 import '../profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {

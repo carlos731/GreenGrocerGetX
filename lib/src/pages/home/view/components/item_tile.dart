@@ -1,9 +1,9 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/item_model.dart';
-import '../../../services/utils_services.dart';
-import '../../product/product_screen.dart';
+import '../../../../models/item_model.dart';
+import '../../../../services/utils_services.dart';
+import '../../../product/product_screen.dart';
 
 class ItemTile extends StatefulWidget {
   final ItemModel item;

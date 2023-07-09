@@ -4,9 +4,9 @@ import 'package:app/src/pages/home/controller/home_controller.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../config/custom_colors.dart';
-import '../common_widgets/app_name_widget.dart';
-import '../common_widgets/custom_shimmer.dart';
+import '../../../config/custom_colors.dart';
+import '../../common_widgets/app_name_widget.dart';
+import '../../common_widgets/custom_shimmer.dart';
 import 'components/category_tile.dart';
 import 'package:app/src/config/app_data.dart' as appData;
 
