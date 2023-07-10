@@ -19,17 +19,19 @@ class HomeController extends GetxController {
   bool isProductLoading = true;
   List<CategoryModel> allCategories = [];
   CategoryModel? currentCategory;
-  List<ItemModel> get allProducts => currentCategory?.items ?? []; // Referenciando na home_tab.dart para buscar produtos pro categoria.
+  List<ItemModel> get allProducts =>
+      currentCategory?.items ??
+      []; // Referenciando na home_tab.dart para buscar produtos pro categoria.
 
   RxString searchTitle = ''.obs;
 
   bool get isLastPage {
-    if(currentCategory!.items.length < itemsPerPage ) return true;
+    if (currentCategory!.items.length < itemsPerPage) return true;
     return currentCategory!.pagination * itemsPerPage > allProducts.length;
   }
 
   void setLoading(bool value, {bool isProduct = false}) {
-    if(!isProduct){
+    if (!isProduct) {
       isCategoryLoading = value;
     } else {
       isProductLoading = value;
@@ -43,7 +45,8 @@ class HomeController extends GetxController {
 
     debounce(
       searchTitle,
-      (_){ // Recuperando valor com o debounce
+      (_) {
+        // Recuperando valor com o debounce
         update();
       },
       time: const Duration(milliseconds: 600),
@@ -55,8 +58,8 @@ class HomeController extends GetxController {
   void selectCategory(CategoryModel category) {
     currentCategory = category;
     update();
-    
-    if(currentCategory!.items.isNotEmpty) return;
+
+    if (currentCategory!.items.isNotEmpty) return;
 
     getAllProducts();
   }
@@ -88,16 +91,49 @@ class HomeController extends GetxController {
     );
   }
 
-  void loadMoreProducts(){
+  void filterByTitle() {
+    // Apagar todos os produtos das categorias
+    for (var category in allCategories) {
+      category.items.clear();
+      category.pagination = 0;
+    }
+
+    if (searchTitle.value.isEmpty){
+      allCategories.removeAt(0);
+    } else {
+      CategoryModel? c = allCategories.firstWhereOrNull((cat) => cat.id == '');
+
+      if(c == null){
+        // Criar uma nova categoria com todos
+        final allProductsCategory = CategoryModel(
+          title: 'Todos',
+          id: '',
+          items: [],
+          pagination: 0,
+        );
+
+        allCategories.insert(0, allProductsCategory);
+      } else {
+        c.items.clear();
+        c.pagination = 0;
+      }
+    }
+
+    currentCategory = allCategories.first;
+    update();
+    getAllProducts();
+  }
+
+  void loadMoreProducts() {
     currentCategory!.pagination++;
     getAllProducts(canLoad: false);
   }
 
   Future<void> getAllProducts({bool canLoad = true}) async {
-    if(canLoad){
+    if (canLoad) {
       setLoading(true, isProduct: true);
     }
-  
+
     Map<String, dynamic> body = {
       'page': currentCategory!.pagination,
       'categoryId': currentCategory!.id,
