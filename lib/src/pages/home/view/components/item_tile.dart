@@ -63,7 +63,7 @@ class _ItemTileState extends State<ItemTile> {
                     child: Hero(
                       tag: widget.item.imgUrl,
                       // Implementação que funciona na versão add_cart_animation 0.0.7
-                      child: Image.asset(
+                      child: Image.network( // asset: para imagen no projeto, network: para imagem da internet
                         widget.item.imgUrl,
                         key: imageGk,
                       ),
