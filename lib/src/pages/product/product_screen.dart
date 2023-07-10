@@ -1,4 +1,6 @@
+import 'package:app/src/pages/base/controller/navigation_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../config/custom_colors.dart';
 import '../../models/item_model.dart';
@@ -21,6 +23,7 @@ class _ProductScreenState extends State<ProductScreen> {
   final UtilsServices utilsServices = UtilsServices();
 
   int cartItemQuantity = 1;
+  final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +120,13 @@ class _ProductScreenState extends State<ProductScreen> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            // Fechar
+                            Get.back();
+
+                            // Ir pro Carrinho
+                            navigationController.navigatePageView(NavigationTabs.cart);
+                          },
                           label: const Text(
                             'Add ao carrinho',
                             style: TextStyle(

@@ -1,3 +1,4 @@
+import 'package:app/src/pages/base/binding/navigation_binding.dart';
 import 'package:app/src/pages/home/binding/home_binding.dart';
 import 'package:get/get.dart';
 import 'package:app/src/pages/splash/splash_screen.dart';
@@ -23,6 +24,7 @@ abstract class AppPages {
       page: () => const BaseScreen(),
       name: PagesRoutes.baseRoute,
       bindings: [
+        NavigationBinding(),
         HomeBinding(),
       ]
     ),
