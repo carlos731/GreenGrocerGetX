@@ -5,6 +5,8 @@ import 'package:app/src/pages/home/result/home_result.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:get/get.dart';
 
+const int itemsPerPage = 6;
+
 class HomeController extends GetxController {
   // void printExample() {
   //   print('Funcionou!');
@@ -66,10 +68,9 @@ class HomeController extends GetxController {
     setLoading(true);
 
     Map<String, dynamic> body = {
-      "page": 0,
-      "title": null,
-      "categoryId": "aGN3NQKlXp",
-      "itemsPerPage": 6
+      'page': currentCategory!.pagination,
+      'categoryId': currentCategory!.id,
+      "itemsPerPage": itemsPerPage,
     };
 
     HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
