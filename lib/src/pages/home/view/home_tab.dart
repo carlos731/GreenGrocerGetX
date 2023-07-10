@@ -38,9 +38,9 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
 
   // bool isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
+  //@override
+  //void initState() {
+    //super.initState();
 
     //Get.find<HomeController>().printExample();
 
@@ -50,7 +50,9 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
     //     isLoading = false;
     //   });
     // });
-  }
+  //}
+
+  final controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -124,6 +126,11 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                 vertical: 10,
               ),
               child: TextFormField(
+
+                onChanged: (value){
+                  controller.searchTitle.value = value;
+                },
+
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
