@@ -14,6 +14,7 @@ class HomeController extends GetxController {
 
   bool isLoading = false;
   List<CategoryModel> allCategories = [];
+  CategoryModel? currentCategory;
 
   void setLoading(bool value) {
     isLoading = value;
@@ -21,10 +22,15 @@ class HomeController extends GetxController {
   }
 
   @override
-  onInit(){
+  void onInit(){
     super.onInit();
 
     getAllCatgories();
+  }
+
+  void selectedCategory(CategoryModel category){
+    currentCategory = category;
+    update();
   }
 
   Future<void> getAllCatgories() async {
@@ -37,6 +43,11 @@ class HomeController extends GetxController {
     homeResult.when(
       success: (data) {
         allCategories.assignAll(data);
+
+        if(allCategories.isEmpty) return;
+
+        selectedCategory(allCategories.first);
+
         print('Todas as categorias: $allCategories');
       },
       error: (message) {
