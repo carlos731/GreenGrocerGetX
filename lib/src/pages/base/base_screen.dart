@@ -36,12 +36,12 @@ class _BaseScreenState extends State<BaseScreen> {
         onTap: (index) {
           setState(() {
             currentIndex = index;
-            //pageController.jumpToPage(index); // Faz com que quando clicar num bottom ele pule para proxima pagina.
-            pageController.animateToPage( // Faz acontecer uma animação quando clica num botão arrastando para próxima página.
-              index,
-              duration: const Duration(milliseconds: 700),
-              curve: Curves.ease,
-            );
+            pageController.jumpToPage(index); // Faz com que quando clicar num bottom ele pule para proxima pagina.
+            //pageController.animateToPage( // Faz acontecer uma animação quando clica num botão arrastando para próxima página.
+              //index,
+              //duration: const Duration(milliseconds: 500),
+              //curve: Curves.ease,
+            //);
           });
         },
         type: BottomNavigationBarType.fixed,
