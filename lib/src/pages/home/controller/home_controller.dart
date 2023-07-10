@@ -1,4 +1,5 @@
 import 'package:app/src/models/category_model.dart';
+import 'package:app/src/models/item_model.dart';
 import 'package:app/src/pages/home/repository/home_repository.dart';
 import 'package:app/src/pages/home/result/home_result.dart';
 import 'package:app/src/services/utils_services.dart';
@@ -22,21 +23,23 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
 
     getAllCatgories();
   }
 
-  void selectedCategory(CategoryModel category){
+  void selectCategory(CategoryModel category) {
     currentCategory = category;
     update();
+    getAllProducts();
   }
 
   Future<void> getAllCatgories() async {
     setLoading(true);
 
-    HomeResult<CategoryModel> homeResult = await homeRepository.getAllCategories();
+    HomeResult<CategoryModel> homeResult =
+        await homeRepository.getAllCategories();
 
     setLoading(false);
 
@@ -44,11 +47,38 @@ class HomeController extends GetxController {
       success: (data) {
         allCategories.assignAll(data);
 
-        if(allCategories.isEmpty) return;
+        if (allCategories.isEmpty) return;
 
-        selectedCategory(allCategories.first);
+        selectCategory(allCategories.first);
 
         print('Todas as categorias: $allCategories');
+      },
+      error: (message) {
+        utilsServices.showFlutterToast(
+          message: message,
+          isError: true,
+        );
+      },
+    );
+  }
+
+  Future<void> getAllProducts() async {
+    setLoading(true);
+
+    Map<String, dynamic> body = {
+      "page": 0,
+      "title": null,
+      "categoryId": "aGN3NQKlXp",
+      "itemsPerPage": 6
+    };
+
+    HomeResult<ItemModel> result = await homeRepository.getAllProducts(body);
+
+    setLoading(false);
+
+    result.when(
+      success: (data) {
+        print(data);
       },
       error: (message) {
         utilsServices.showFlutterToast(

@@ -161,7 +161,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                           itemBuilder: (_, index) {
                             return CategoryTile(
                               onPressed: () {
-                                controller.selectedCategory(
+                                controller.selectCategory(
                                     controller.allCategories[index]);
                               },
                               category: controller.allCategories[index].title,
