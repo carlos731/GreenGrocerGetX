@@ -18,6 +18,7 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
+  final cartController = Get.find<CartController>();
 
   //double cartTotalPrice() {
   // double total = 0;
@@ -126,21 +127,9 @@ class _CartTabState extends State<CartTab> {
                       //print(result);
 
                       if (result ?? false) {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return PaymentDialog(
-                              order: appData.orders.first,
-                            );
-                          },
-                        );
-                      } else {
-                        utilsServices.showToast(
-                            message: 'Pedido não confirmado',
-                            isError: true,
-                            context: context,
-                            width: 300,
-                            height: 50);
+
+                        cartController.checkoutCart();
+
                       }
                     },
                     child: const Text(

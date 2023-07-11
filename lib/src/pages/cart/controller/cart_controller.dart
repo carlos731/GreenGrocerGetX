@@ -1,9 +1,12 @@
 import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/models/item_model.dart';
+import 'package:app/src/models/order_model.dart';
 import 'package:app/src/pages/auth/controller/auth_controller.dart';
 import 'package:app/src/pages/cart/cart_result/cart_result.dart';
 import 'package:app/src/pages/cart/repository/cart_repository.dart';
+import 'package:app/src/pages/common_widgets/payment_dialog.dart';
 import 'package:app/src/services/utils_services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -19,6 +22,7 @@ class CartController extends GetxController {
 
     getCartItems();
   }
+
   // Para mostrar o total no badge do carrinho na home_tab.
   int getCartTotalItems() {
     return cartItems.isEmpty
@@ -34,6 +38,31 @@ class CartController extends GetxController {
     }
 
     return total;
+  }
+
+  Future checkoutCart() async {
+    CartResult<OrderModel> result = await cartRepository.checkoutCart(
+      token: authController.user.token!,
+      total: cartTotalPrice(),
+    );
+
+    result.when(
+      success: (order) {
+        showDialog(
+          context: Get.context!,
+          builder: (_) {
+            return PaymentDialog(
+              order: order,
+            );
+          },
+        );
+      },
+      error: (message) {
+        utilsServices.showFlutterToast(
+          message: 'Pedido não confirmado',
+        );
+      },
+    );
   }
 
   Future<bool> changeItemQuantity({
