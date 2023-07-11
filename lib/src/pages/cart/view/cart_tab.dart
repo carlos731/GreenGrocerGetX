@@ -19,16 +19,16 @@ class CartTab extends StatefulWidget {
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
 
-  double cartTotalPrice() {
-    // double total = 0;
+  //double cartTotalPrice() {
+  // double total = 0;
 
-    // for (var item in appData.cartItems) {
-    //   total += item.totalPrice();
-    // }
+  // for (var item in appData.cartItems) {
+  //   total += item.totalPrice();
+  // }
 
-    // return total;
-    return 0;
-  }
+  // return total;
+  //return 0;
+  //}
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +50,20 @@ class _CartTabState extends State<CartTab> {
         children: [
           Expanded(
             child: GetBuilder<CartController>(builder: (controller) {
+              if (controller.cartItems.isEmpty) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.remove_shopping_cart,
+                      size: 40,
+                      color: CustomColors.customSwatchColor,
+                    ),
+                    const Text('Não há itens no carrinho'),
+                  ],
+                );
+              }
+
               return ListView.builder(
                 itemCount: controller.cartItems.length,
                 itemBuilder: (_, index) {

@@ -1,5 +1,6 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/item_model.dart';
+import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/product/product_screen.dart';
 import 'package:app/src/pages_routes/app_pages.dart';
 import 'package:app/src/services/utils_services.dart';
@@ -25,6 +26,7 @@ class _ItemTileState extends State<ItemTile> {
   final GlobalKey imageGk = GlobalKey();
 
   final UtilsServices utilsServices = UtilsServices(); //Final tirar em
+  final cartController = Get.find<CartController>();
 
   IconData tileIcon = Icons.add_shopping_cart_outlined;
 
@@ -33,7 +35,7 @@ class _ItemTileState extends State<ItemTile> {
     // Trocar o icone para o icone de check
     setState(() => tileIcon = Icons.check);
     // fazer o delay
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 1000)); // Mais tempo resultara em erro
     // Alterar o icone para de adicionar ao carrinho de novo
     setState(() => tileIcon = Icons.add_shopping_cart_outlined);
   }
@@ -127,6 +129,8 @@ class _ItemTileState extends State<ItemTile> {
               child: InkWell(
                 onTap: () {
                   switchIcon();
+
+                  cartController.addItemToCart(item: widget.item);
 
                   widget.cartAnimationMethod(imageGk);
                 },

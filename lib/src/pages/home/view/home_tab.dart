@@ -1,5 +1,6 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
+import 'package:app/src/pages/base/controller/navigation_controller.dart';
 import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:app/src/pages/home/controller/home_controller.dart';
 import 'package:app/src/services/utils_services.dart';
@@ -31,6 +32,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
   GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
 
   final searchController = TextEditingController();
+  final navigationController = Get.find<NavigationController>();
 
   late Function(GlobalKey) runAddToCardAnimation;
 
@@ -76,7 +78,9 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
             ),
             child: GetBuilder<CartController>(builder: (controller) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  navigationController.navigatePageView(NavigationTabs.cart);
+                },
                 child: badges.Badge(
                   badgeStyle: badges.BadgeStyle(
                     badgeColor: CustomColors.customContrastColor,
@@ -87,6 +91,13 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                       color: Colors.white,
                       fontSize: 12,
                     ),
+                  ),
+                  badgeAnimation: const badges.BadgeAnimation.scale(
+                    animationDuration: Duration(seconds: 1),
+                    colorChangeAnimationDuration: Duration(seconds: 1),
+                    loopAnimation: false,
+                    curve: Curves.fastOutSlowIn,
+                    colorChangeAnimationCurve: Curves.easeInCubic,
                   ),
                   child: AddToCartIcon(
                     key: globalKeyCartItems,
