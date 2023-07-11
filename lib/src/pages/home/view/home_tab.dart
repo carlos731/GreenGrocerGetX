@@ -135,39 +135,41 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
                       controller.searchTitle.value = value;
                     },
                     decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        isDense: true,
-                        hintText: 'Pesquise aqui...',
-                        hintStyle: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 14,
+                      filled: true,
+                      fillColor: Colors.white,
+                      isDense: true,
+                      hintText: 'Pesquise aqui...',
+                      hintStyle: TextStyle(
+                        color: Colors.grey.shade400,
+                        fontSize: 14,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: CustomColors.customContrastColor,
+                        size: 21,
+                      ),
+                      suffixIcon: controller.searchTitle.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                searchController.clear();
+                                controller.searchTitle.value = '';
+                                FocusScope.of(context).unfocus();
+                              },
+                              icon: Icon(
+                                Icons.close,
+                                color: CustomColors.customContrastColor,
+                                size: 21,
+                              ),
+                            )
+                          : null,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(60),
+                        borderSide: const BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
                         ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: CustomColors.customContrastColor,
-                          size: 21,
-                        ),
-                        suffixIcon: controller.searchTitle.isNotEmpty
-                            ? IconButton(
-                                onPressed: () {
-                                  searchController.clear();
-                                  controller.searchTitle.value = '';
-                                  FocusScope.of(context).unfocus();
-                                },
-                                icon: Icon(
-                                  Icons.close,
-                                  color: CustomColors.customContrastColor,
-                                  size: 21,
-                                ),
-                              )
-                            : null,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(60),
-                            borderSide: const BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ))),
+                      ),
+                    ),
                   ),
                 );
               },

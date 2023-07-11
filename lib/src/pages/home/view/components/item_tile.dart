@@ -1,9 +1,9 @@
 import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/models/item_model.dart';
+import 'package:app/src/pages/product/product_screen.dart';
+import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../models/item_model.dart';
-import '../../../../services/utils_services.dart';
-import '../../../product/product_screen.dart';
 
 class ItemTile extends StatefulWidget {
   final ItemModel item;
@@ -31,7 +31,7 @@ class _ItemTileState extends State<ItemTile> {
     // Trocar o icone para o icone de check
     setState(() => tileIcon = Icons.check);
     // fazer o delay
-    await Future.delayed(const Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 1500));
     // Alterar o icone para de adicionar ao carrinho de novo
     setState(() => tileIcon = Icons.add_shopping_cart_outlined);
   }

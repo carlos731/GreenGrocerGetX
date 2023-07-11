@@ -1,10 +1,10 @@
 import 'package:app/src/config/custom_colors.dart';
+import 'package:app/src/models/cart_item_model.dart';
+import 'package:app/src/pages/common_widgets/payment_dialog.dart';
+import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
-import '../../models/cart_item_model.dart';
-import '../../services/utils_services.dart';
 import 'package:app/src/config/app_data.dart' as appData;
 
-import '../common_widgets/payment_dialog.dart';
 import 'components/cart_tile.dart';
 
 class CartTab extends StatefulWidget {
