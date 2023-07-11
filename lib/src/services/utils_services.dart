@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -76,5 +79,11 @@ class UtilsServices {
       height: height,
       padding: const EdgeInsets.symmetric(vertical: 40),
     ).show(context);
+  }
+
+  Uint8List decodeQrCodeImage(String value) {
+    String base64String = value.split(',').last;
+
+    return base64.decode(base64String);
   }
 }

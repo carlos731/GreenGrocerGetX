@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -13,7 +14,7 @@ class PaymentDialog extends StatelessWidget {
   });
 
   final UtilsServices utilsServices = UtilsServices();
-
+  
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -41,10 +42,15 @@ class PaymentDialog extends StatelessWidget {
                   ),
                 ),
                 // QR Code
-                QrImageView(
-                  data: 'asdasdasfagdsfsdfsadf54',
-                  version: QrVersions.auto,
-                  size: 200.0,
+                // QrImageView(
+                //   data: 'asdasdasfagdsfsdfsadf54',
+                //   version: QrVersions.auto,
+                //   size: 200.0,
+                // ),
+                Image.memory(
+                  utilsServices.decodeQrCodeImage(order.qrCodeImage),
+                  height: 200,
+                  width: 200,
                 ),
                 // Vencimento
                 Text(
@@ -72,7 +78,10 @@ class PaymentDialog extends StatelessWidget {
                       color: Colors.green,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    FlutterClipboard.copy(order.copyAndPaste);
+                    utilsServices.showFlutterToast(message: 'Código copiado');
+                  },
                   icon: const Icon(
                     Icons.copy,
                     size: 15,
