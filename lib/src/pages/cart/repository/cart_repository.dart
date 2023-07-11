@@ -32,6 +32,26 @@ class CartRepository {
     }
   }
 
+  Future<bool> changeItemQuantity({
+    required String token,
+    required String cartItemId,
+    required int quantity,
+  }) async {
+    final result = await _httpManager.restRequest(
+      url: Endpoints.changeItemQuantity,
+      method: HttpMethods.post,
+      body: {
+        'cartItemId': cartItemId,
+        'quantity': quantity,
+      },
+      headers: {
+        'X-Parse-Session-Token': token,
+      },
+    );
+
+    return result.isEmpty;
+  }
+
   Future<CartResult<String>> addItemToCart({
     required String userId,
     required String token,
@@ -50,7 +70,7 @@ class CartRepository {
           'X-Parse-Session-Token': token,
         });
 
-    if(result['result'] != null){
+    if (result['result'] != null) {
       // Adicionamos o produto
       return CartResult<String>.success(result['result']['id']);
     } else {
