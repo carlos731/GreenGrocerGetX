@@ -1,4 +1,5 @@
 import 'package:app/src/pages/base/controller/navigation_controller.dart';
+import 'package:app/src/pages/cart/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +24,8 @@ class _ProductScreenState extends State<ProductScreen> {
   final UtilsServices utilsServices = UtilsServices();
 
   int cartItemQuantity = 1;
+
+  final cartController = Get.find<CartController>();
   final navigationController = Get.find<NavigationController>();
 
   @override
@@ -37,7 +40,8 @@ class _ProductScreenState extends State<ProductScreen> {
               Expanded(
                 child: Hero(
                   tag: widget.item.imgUrl,
-                  child: Image.network(widget.item.imgUrl), // Network para imagens da internet
+                  child: Image.network(
+                      widget.item.imgUrl), // Network para imagens da internet
                 ),
               ),
               Expanded(
@@ -124,8 +128,14 @@ class _ProductScreenState extends State<ProductScreen> {
                             // Fechar
                             Get.back();
 
+                            cartController.addItemToCart(
+                              item: widget.item,
+                              quantity: cartItemQuantity,
+                            );
+
                             // Ir pro Carrinho
-                            navigationController.navigatePageView(NavigationTabs.cart);
+                            navigationController
+                                .navigatePageView(NavigationTabs.cart);
                           },
                           label: const Text(
                             'Add ao carrinho',
