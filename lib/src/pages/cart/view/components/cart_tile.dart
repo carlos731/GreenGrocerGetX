@@ -6,14 +6,10 @@ import 'package:flutter/material.dart';
 
 class CartTile extends StatefulWidget {
   final CartItemModel cartItem;
-  // final Function(CartItemModel) remove;
-  final Function(int) updatedQuantity;
 
   const CartTile({
     super.key,
     required this.cartItem,
-    // required this.remove,
-    required this.updatedQuantity,
   });
 
   @override
@@ -30,10 +26,9 @@ class _CartTileState extends State<CartTile> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-
       child: ListTile(
         // imagem
-        leading: Image.asset(
+        leading: Image.network(
           widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,
@@ -56,30 +51,20 @@ class _CartTileState extends State<CartTile> {
           ),
         ),
 
-        // Quantidade
-        // trailing: QuantityWidget(
-        //   suffixText: widget.cartItem.item.unit,
-        //   value: widget.cartItem.quantity,
-        //   result: (quantity) {
-        //     setState(() {
-        //       widget.cartItem.quantity = quantity;
-
-        //       if(quantity == 0) {
-        //         // remover item do carrinho
-        //         widget.remove(widget.cartItem);
-        //       }
-        //     });
-        //   },
-        //   isRemovable: true,
-        // ),
-
+        //Quantidade
         trailing: QuantityWidget(
           suffixText: widget.cartItem.item.unit,
           value: widget.cartItem.quantity,
-          result: widget.updatedQuantity,
+          result: (quantity) {},
           isRemovable: true,
         ),
 
+        // trailing: QuantityWidget(
+        //   suffixText: widget.cartItem.item.unit,
+        //   value: widget.cartItem.quantity,
+        //   result: widget.updatedQuantity,
+        //   isRemovable: true,
+        // ),
       ),
     );
   }
