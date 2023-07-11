@@ -1,8 +1,10 @@
 import 'package:app/src/config/custom_colors.dart';
 import 'package:app/src/models/item_model.dart';
 import 'package:app/src/pages/product/product_screen.dart';
+import 'package:app/src/pages_routes/app_pages.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class ItemTile extends StatefulWidget {
@@ -43,9 +45,11 @@ class _ItemTileState extends State<ItemTile> {
         // Conteudo
         GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-              return ProductScreen(item: widget.item);
-            }));
+            // Navigator.of(context).push(MaterialPageRoute(builder: (c) {
+            //   return ProductScreen(item: widget.item);
+            // }));
+
+            Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
           },
           child: Card(
             elevation: 1,
