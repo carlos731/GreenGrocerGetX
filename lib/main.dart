@@ -1,14 +1,25 @@
 import 'package:app/src/pages/auth/controller/auth_controller.dart';
 import 'package:app/src/pages_routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized(); // Ter certeza que está inicializado
 
+  // Comandos para controlar a orientação de tela: app deitado ou em pé.
+  SystemChrome.setPreferredOrientations([
+    //DeviceOrientation.landscapeRight,
+    //DeviceOrientation.landscapeLeft,
+    //DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    runApp(const MyApp());
+  });
+
   Get.put(AuthController()); // Injeção de dependência
 
-  runApp(const MyApp());
+  //runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
