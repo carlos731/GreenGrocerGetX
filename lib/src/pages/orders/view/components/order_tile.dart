@@ -1,9 +1,10 @@
+import 'package:app/src/models/cart_item_model.dart';
+import 'package:app/src/models/order_model.dart';
+import 'package:app/src/pages/common_widgets/payment_dialog.dart';
+import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/cart_item_model.dart';
-import '../../../models/order_model.dart';
-import '../../../services/utils_services.dart';
-import '../../common_widgets/payment_dialog.dart';
+
 import 'order_status_widget.dart';
 
 class OrderTile extends StatelessWidget {
