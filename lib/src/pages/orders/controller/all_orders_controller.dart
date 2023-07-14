@@ -10,7 +10,7 @@ class AllOrdersController extends GetxController {
   final ordersRepository = OrdersRepository();
   final authController = Get.find<AuthController>();
   final utilsServices = UtilsServices();
-
+  
   @override
   void onInit(){
     super.onInit();
