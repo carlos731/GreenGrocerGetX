@@ -169,13 +169,22 @@ class _OrderItemWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
+          // Imagem
+          Image.network(
+            orderItem.item.imgUrl,
+            height: 30,
+            width: 30,
+          ),
+          // Quantidade
           Text(
             '${orderItem.quantity} ${orderItem.item.unit} ',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
+          // Nome
           Expanded(child: Text(orderItem.item.itemName)),
+          // Total
           Text(utilsServices.priceToCurrency(orderItem.totalPrice()))
         ],
       ),
