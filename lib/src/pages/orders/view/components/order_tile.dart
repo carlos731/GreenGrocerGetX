@@ -2,6 +2,7 @@ import 'package:app/src/models/cart_item_model.dart';
 import 'package:app/src/models/order_model.dart';
 import 'package:app/src/pages/common_widgets/payment_dialog.dart';
 import 'package:app/src/pages/orders/controller/order_controller.dart';
+import 'package:app/src/pages_routes/app_pages.dart';
 import 'package:app/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -167,26 +168,31 @@ class _OrderItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        children: [
-          // Imagem
-          Image.network(
-            orderItem.item.imgUrl,
-            height: 30,
-            width: 30,
-          ),
-          // Quantidade
-          Text(
-            '${orderItem.quantity} ${orderItem.item.unit} ',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
+      child: GestureDetector(
+        onTap: () {
+            Get.toNamed(PagesRoutes.productRoute, arguments: orderItem.item);
+        },
+        child: Row(
+          children: [
+            // Imagem
+            Image.network(
+              orderItem.item.imgUrl,
+              height: 30,
+              width: 30,
             ),
-          ),
-          // Nome
-          Expanded(child: Text(orderItem.item.itemName)),
-          // Total
-          Text(utilsServices.priceToCurrency(orderItem.totalPrice()))
-        ],
+            // Quantidade
+            Text(
+              '${orderItem.quantity} ${orderItem.item.unit} ',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            // Nome
+            Expanded(child: Text(orderItem.item.itemName)),
+            // Total
+            Text(utilsServices.priceToCurrency(orderItem.totalPrice()))
+          ],
+        ),
       ),
     );
   }
