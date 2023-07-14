@@ -15,7 +15,6 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-
   final authController = Get.find<AuthController>();
 
   @override
@@ -26,7 +25,7 @@ class _ProfileTabState extends State<ProfileTab> {
         actions: [
           IconButton(
             onPressed: () {
-               authController.signOut();
+              authController.signOut();
             },
             icon: const Icon(Icons.logout),
           ),
@@ -93,7 +92,7 @@ class _ProfileTabState extends State<ProfileTab> {
   }
 
   Future<bool?> updatePassword() {
-
+    final currentPasswordController = TextEditingController();
     final newPasswordController = TextEditingController();
     final _formKey = GlobalKey<FormState>();
 
@@ -127,7 +126,8 @@ class _ProfileTabState extends State<ProfileTab> {
                         ),
                       ),
                       //Senha atual
-                      const CustomTextField(
+                      CustomTextField(
+                        controller: currentPasswordController,
                         icon: Icons.lock,
                         label: 'Senha atual',
                         isSecret: true,
@@ -146,38 +146,49 @@ class _ProfileTabState extends State<ProfileTab> {
                         icon: Icons.lock_outline,
                         label: 'Confirmar nova senha',
                         isSecret: true,
-                        validator: (password){
+                        validator: (password) {
                           final result = passwordValidator(password);
-                          if(result != null){
+                          if (result != null) {
                             return result;
                           }
-                          if(password != newPasswordController.text){
+                          if (password != newPasswordController.text) {
                             return 'As senhas não são equivalentes';
                           }
                           return null;
                         },
                       ),
-                
+
                       //Botão de confirmação
                       SizedBox(
                         height: 45,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                        child: Obx(
+                          () => ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                             ),
+                            onPressed: authController.isLoading.value
+                                ? null
+                                : () {
+                                    if (_formKey.currentState!.validate()) {
+                                      authController.changePassword(
+                                        currentPassword: currentPasswordController.text,
+                                        newPassword: newPasswordController.text,
+                                      );
+                                    }
+                                  },
+                            child: authController.isLoading.value
+                                ? const CircularProgressIndicator()
+                                : const Text('Atualizar'),
                           ),
-                          onPressed: () {
-                            _formKey.currentState!.validate();
-                          },
-                          child: const Text('Atualizar'),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-              
+
               //Botão de fechar o dialog
               Positioned(
                 top: 5,
@@ -189,7 +200,6 @@ class _ProfileTabState extends State<ProfileTab> {
                   icon: const Icon(Icons.close),
                 ),
               ),
-
             ],
           ),
         );

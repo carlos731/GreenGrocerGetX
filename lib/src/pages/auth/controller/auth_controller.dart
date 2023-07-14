@@ -45,6 +45,36 @@ class AuthController extends GetxController {
     );
   }
 
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+
+    isLoading.value = true;
+
+    final result = await authRepository.changePassword(
+      email: user.email!,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      token: user.token!,
+    );
+
+    isLoading.value = false;
+
+    if (result) {
+      // Mensagem
+      utilsServices.showFlutterToast(
+          message: 'A senha foi atualizada com sucesso!');
+      // logout
+      signOut();
+    } else {
+      utilsServices.showFlutterToast(
+        message: 'A senha atual está incorreta',
+        isError: true,
+      );
+    }
+  }
+
   Future<void> resetPassword(String email) async {
     await authRepository.resetPassword(email);
   }
