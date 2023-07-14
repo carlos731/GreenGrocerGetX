@@ -14,7 +14,9 @@ class OrdersRepository {
     final result = await _httpManager.restRequest(
       url: Endpoints.getOrderItems,
       method: HttpMethods.post,
-      body: {'orderId': orderId},
+      body: {
+        'orderId': orderId,
+      },
       headers: {
         'X-Parse-Session-Token': token,
       },
@@ -28,7 +30,8 @@ class OrdersRepository {
 
       return OrdersResult<List<CartItemModel>>.success(items);
     } else {
-      return OrdersResult.error('Não foi possível recuperar os produtos do pedido');
+      return OrdersResult.error(
+          'Não foi possível recuperar os produtos do pedido');
     }
   }
 
