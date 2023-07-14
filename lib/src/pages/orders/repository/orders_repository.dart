@@ -3,7 +3,7 @@ import 'package:app/src/models/order_model.dart';
 import 'package:app/src/pages/orders/orders_result/orders_result.dart';
 import 'package:app/src/services/http_manager.dart';
 
-class OrdersReposiotry {
+class OrdersRepository {
   final _httpManager = HttpManager();
 
   Future<OrdersResult<List<OrderModel>>> getAllOrders({
