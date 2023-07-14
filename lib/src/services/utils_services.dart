@@ -40,7 +40,7 @@ class UtilsServices {
   String formatDateTime(DateTime dateTime) {
     initializeDateFormatting();
     DateFormat dateFormat = DateFormat.yMd('pt_BR').add_Hm();
-    return dateFormat.format(dateTime);
+    return dateFormat.format(dateTime.toLocal());
   }
 
   // Método usando fluttertoast
